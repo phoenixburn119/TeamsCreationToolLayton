@@ -1,14 +1,14 @@
 $global:TeamsName = ""
 $global:TeamsID = ""
 $global:TeamsAllInfo = ""
-$ChannelList = Get-Content -Path "\\lcc-automation\AutomationPublic\Kinzer_Directory\TeamsCreationTool\ChannelList.txt"
+$ChannelList = Get-Content -Path ".\ChannelList.txt"
 
 Function PrintError($err) {
     #Used for return of standardized formated errors throughout the program.
     write-host $err -ForeGroundColor Red
 }
 Function MenuCreate {
-    Write-Host "PROGRAM NAME PLACEHOLDER maybe Teams MultiTool cause I like it" -NoNewLine -ForeGroundColor Yellow
+    Write-Host "PROGRAM NAME PLACEHOLDER" -NoNewLine -ForeGroundColor Yellow
     Write-Host " "
 
     #Creates a main menu that detects userID's existance and also displays it. 
@@ -104,6 +104,7 @@ Function TeamsAddChannels {
         Start-Sleep -Seconds 5
         Return
     }
+    
     $UserName = $UserName + "@laytonconstruction.com"
     For($idx = 0; ($idx -lt $ChannelList.Count) -AND (Get-TeamsChannelChecker($ChannelList[$idx])); $idx++) {
         New-TeamChannel -GroupId $global:TeamsID -DisplayName $ChannelList[$idx] -MembershipType Private -Owner $UserName
